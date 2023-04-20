@@ -1,0 +1,43 @@
+swagger: '2.0'
+info:
+  title: <product-name>-api
+  description: Get error logs.
+  version: 1.0.0
+schemes:
+  - https
+host: <product-name>-12digy9dqs3p8.apigateway.<project-id>.cloud.goog
+x-google-endpoints:
+  - name: <product-name>-12digy9dqs3p8.apigateway.<project-id>.cloud.goog
+    allowCors: True
+produces:
+  - application/json
+securityDefinitions:
+  api_key_header:
+    type: apiKey
+    name: x-api-key
+    in: header
+paths:
+  /records:
+    post:
+      summary: Get error logs.
+      consumes:
+        - application/json
+      operationId: records
+      x-google-backend:
+        address:  https://us-west2-<project-id>.cloudfunctions.net/<function-name>
+      security:
+        - api_key_header: []
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: string
+    options:
+      operationId: corsRecords
+      x-google-backend:
+        address: https://us-west2-<project-id>.cloudfunctions.net/<function-name>
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: string
